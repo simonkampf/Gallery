@@ -1,9 +1,28 @@
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+@media screen and (min-width: 40em) {
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .card {
+    flex: 0 1 calc(50% - 1em);
+    align-items: center;
+  }
+}
+@media screen and (min-width: 60em) {
+  .card {
+    flex: 0 1 calc(25% - 1em);
+    align-items: center;
+  }
 }
 
-.card {
-  flex: 0 1 calc(25% - 1em);
+img {
+  display: block;
+  max-width: 128px;
+  max-height: 128px;
+  width: auto;
+  height: auto;
+  text-align: center;
+  margin: auto;
 }

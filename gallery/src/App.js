@@ -7,7 +7,7 @@ import "./App.css";
 const App = () => {
   const [profiles, setProfiles] = useState([]); // använda hooks
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [profilesPerPage, setProfilesPerPage] = useState(10);
 
   useEffect(() => {
@@ -24,9 +24,7 @@ const App = () => {
   }, []);
 
   console.log(profiles);
-  //const lastProfileIndex = currentPage * profilesPerPage;
-  //const firstProfileIndex = lastProfileIndex - profilesPerPage;
-  //const currentProfiles = profiles.slice(firstProfileIndex, lastProfileIndex);
+
   return (
     <div className="App">
       <Profiles profiles={profiles} loading={loading}></Profiles>
