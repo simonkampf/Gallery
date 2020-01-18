@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import logo from "./logo.svg";
+import axios from "axios";
+import Profiles from "./components/Profiles";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [profiles, setProfiles] = useState([]); // använda hooks
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [profilesPerPage, setProfilesPerPage] = useState(10);
+
+  useEffect(() => {
+    // körs när komponenten mountas samt uppdateras...
+    const fetchProfiles = async () => {
+      setLoading(true);
+      const res = await axios.get("https://randomuser.me/api/?results=50");
+      console.log(res.data);
+
+      setProfiles(res.data.results);
+      setLoading(false);
+    };
+    fetchProfiles();
+  }, []);
+
+  console.log(profiles);
+  //const lastProfileIndex = currentPage * profilesPerPage;
+  //const firstProfileIndex = lastProfileIndex - profilesPerPage;
+  //const currentProfiles = profiles.slice(firstProfileIndex, lastProfileIndex);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Profiles profiles={profiles} loading={loading}></Profiles>
     </div>
   );
-}
+};
 
 export default App;
