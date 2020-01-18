@@ -7,9 +7,10 @@ const Profiles = ({ profiles, loading }) => {
 
   return (
     <div>
+      <h1>Secret Profiles</h1>
       <section className="cards">
         {profiles.map(profile => (
-          <article className="card">
+          <article className="card" key={profiles.indexOf(profile)}>
             {profile.name.title +
               " " +
               profile.name.first +
@@ -23,7 +24,9 @@ const Profiles = ({ profiles, loading }) => {
 
             {"Date of birth: " + profile.dob["date"].substring(0, 10)}
             <br></br>
-            {"\n Country: " + profile.location.country}
+            {"Country: " + profile.location.country}
+            <br></br>
+            {"Email: " + profile.email}
           </article>
         ))}
       </section>
