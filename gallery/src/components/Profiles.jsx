@@ -1,5 +1,6 @@
 import React from "react";
 import "./Profiles.css";
+
 const Profiles = ({ profiles, loading }) => {
   if (loading) {
     return <h2>loading...</h2>;
