@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import axios from "axios";
 import Profiles from "./components/Profiles";
 import "./App.css";
+import useScroll from "./components/useScroll";
+import "bootstrap/dist/css/bootstrap.css";
 
 const App = () => {
-  const [profiles, setProfiles] = useState([]); // använda hooks
+  const [profiles, setProfiles] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
-  const [profilesPerPage, setProfilesPerPage] = useState(10);
+  const [allowMoreProfiles, setAllowMoreProfiles] = useState(true);
+  useScroll(loading); // attach scroll-save to loading boolean...
 
   const fetchProfiles = async () => {
-    if (pageNumber === 6) {
+    if (!allowMoreProfiles) {
       return;
     }
     setLoading(true);
@@ -26,15 +28,18 @@ const App = () => {
     } else {
       setProfiles(profiles => [...profiles, ...res.data.results]);
     }
-
     setLoading(false);
+    if (pageNumber === 6) {
+      setAllowMoreProfiles(false);
+    }
   };
   useEffect(() => {
     // körs när komponenten mountas samt uppdateras...
-    fetchProfiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchProfiles(); // är OK med funktion utanför eftersom hooks enbart uppdateras vid reload samt om loadMore-knappen trycks...?
   }, []);
 
-  console.log(profiles);
+  //console.log(profiles);
 
   function loadMore() {
     fetchProfiles();
@@ -42,8 +47,14 @@ const App = () => {
 
   return (
     <div className="App">
+      <h1>Secret Profiles</h1>
+
       <Profiles profiles={profiles} loading={loading}></Profiles>
-      <button onClick={loadMore}>Load more</button>
+      {loading === false && allowMoreProfiles === true ? (
+        <button onClick={loadMore} className="btn btn-info">
+          Load more
+        </button>
+      ) : null}
     </div>
   );
 };

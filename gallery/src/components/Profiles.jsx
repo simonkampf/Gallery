@@ -8,7 +8,6 @@ const Profiles = ({ profiles, loading }) => {
 
   return (
     <div>
-      <h1>Secret Profiles</h1>
       <section className="cards">
         {profiles.map(profile => (
           <article className="card" key={profiles.indexOf(profile)}>
