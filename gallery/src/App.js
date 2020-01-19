@@ -6,12 +6,11 @@ import useScroll from "./components/useScroll";
 import "bootstrap/dist/css/bootstrap.css";
 
 const App = () => {
-  const [profiles, setProfiles] = useState([]);
-
-  const [loading, setLoading] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [allowMoreProfiles, setAllowMoreProfiles] = useState(true);
-  useScroll(loading); // attach scroll-save to loading boolean...
+  const [profiles, setProfiles] = useState([]); // all of the profiles to show
+  const [loading, setLoading] = useState(false); // if we're waiting for the rest-response
+  const [pageNumber, setPageNumber] = useState(1); // page number for next request
+  const [allowMoreProfiles, setAllowMoreProfiles] = useState(true); // max profiles = 200
+  useScroll(loading); // attach scroll-location-restore to loading boolean...
 
   const fetchProfiles = async () => {
     if (!allowMoreProfiles) {
@@ -23,24 +22,22 @@ const App = () => {
     setPageNumber(pageNumber + 1);
     const res = await axios.get(url);
     console.log(res.data);
-    if (profiles.length === 0) {
-      setProfiles(res.data.results);
-    } else {
-      setProfiles(profiles => [...profiles, ...res.data.results]);
-    }
+
+    setProfiles(profiles => [...profiles, ...res.data.results]); // append 40 new profiles to previous old data (or append to empty array if first)
+
     setLoading(false);
-    if (pageNumber === 6) {
-      setAllowMoreProfiles(false);
+    if (pageNumber > 5) {
+      setAllowMoreProfiles(false); // allow only 5*40 profiles to be loaded
     }
   };
   useEffect(() => {
-    // körs när komponenten mountas samt uppdateras...
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    fetchProfiles(); // är OK med funktion utanför eftersom hooks enbart uppdateras vid reload samt om loadMore-knappen trycks...?
+    fetchProfiles();
   }, []);
 
   //console.log(profiles);
 
+  //update button
   function loadMore() {
     fetchProfiles();
   }
@@ -50,7 +47,7 @@ const App = () => {
       <h1>Secret Profiles</h1>
 
       <Profiles profiles={profiles} loading={loading}></Profiles>
-      {loading === false && allowMoreProfiles === true ? (
+      {loading === false && allowMoreProfiles === true ? ( // dont display button whilst loading or if we have reached limit for number of profiles (200)
         <button onClick={loadMore} className="btn btn-info">
           Load more
         </button>

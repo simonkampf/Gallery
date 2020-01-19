@@ -1,12 +1,14 @@
+/* flexbox to change how many profiles to be shown per row */
+
 @media screen and (min-width: 40em) {
   .cards {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* make the cards wrap underneath one another*/
     justify-content: space-between;
   }
 
   .card {
-    flex: 0 1 calc(50% - 1em);
+    flex: 0 1 calc(50% - 1em); /* */
     align-items: center;
   }
 }
