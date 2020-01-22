@@ -47,6 +47,9 @@ img {
   text-overflow: ellipsis;
 }
 
+.profile_info:hover {
+  overflow: visible;
+}
 .profile_title {
   font-family: Aleo;
   padding: 12px;
