@@ -36,8 +36,8 @@ const App = () => {
     }
   };
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     fetchProfiles();
+    // eslint-disable-next-line
   }, []);
 
   //console.log(profiles);
@@ -50,9 +50,8 @@ const App = () => {
   return (
     <div className="App">
       <h1>Secret Profiles</h1>
-
       <Profiles profiles={profiles} loading={loading}></Profiles>
-      {error == false ? (
+      {error === false ? (
         loading === false && allowMoreProfiles === true ? ( // dont display button whilst loading or if we have reached limit for number of profiles (200)
           <button onClick={loadMore} className="btn btn-info">
             Load more

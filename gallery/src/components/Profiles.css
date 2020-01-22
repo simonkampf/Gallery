@@ -1,5 +1,4 @@
 /* flexbox to change how many profiles to be shown per row */
-
 @media screen and (min-width: 40em) {
   .cards {
     display: flex;
@@ -9,13 +8,11 @@
 
   .card {
     flex: 0 1 calc(50% - 1em); /* */
-    align-items: center;
   }
 }
 @media screen and (min-width: 60em) {
   .card {
     flex: 0 1 calc(25% - 1em);
-    align-items: center;
   }
 }
 
@@ -27,6 +24,7 @@ img {
   height: auto;
   text-align: center;
   margin: auto;
+  border-radius: 3px;
 }
 
 .card {
@@ -35,8 +33,28 @@ img {
   transition: 0.2s;
   padding: 10px;
   border-radius: 10px;
+  font-family: Aleo;
 }
 
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.profile_info {
+  padding: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile_title {
+  font-family: Aleo;
+  padding: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile_title:hover {
+  overflow: visible;
 }
